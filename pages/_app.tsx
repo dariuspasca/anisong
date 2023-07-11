@@ -1,6 +1,7 @@
 import React, { ReactElement, ReactNode } from "react"
 import type { NextPage } from "next"
 import { AppProps } from "next/app"
+import { MenuProvider } from "@/context/menu-context"
 import { GitHubBanner, Refine } from "@refinedev/core"
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar"
 import routerProvider, {
@@ -8,12 +9,13 @@ import routerProvider, {
   UnsavedChangesNotifier,
 } from "@refinedev/nextjs-router"
 import { dataProvider } from "@refinedev/supabase"
-
-import "@/styles/global.css"
-
+import { ThemeProvider } from "next-themes"
 import { authProvider } from "src/lib/authProvider"
 
 import { supabaseClient } from "@/lib/supabaseClient"
+import TailwindIndicator from "@/components/tailwind-indicator"
+
+import "@/styles/global.css"
 
 export type NextPageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<
   P,
@@ -29,8 +31,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
   const getLayout = Component.getLayout ?? ((page) => page)
 
   return (
-    <>
-      <GitHubBanner />
+    <ThemeProvider attribute="class" enableSystem>
       <RefineKbarProvider>
         <Refine
           routerProvider={routerProvider}
@@ -41,13 +42,16 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
             warnWhenUnsavedChanges: true,
           }}
         >
-          {getLayout(<Component {...pageProps} />)}
-          <RefineKbar />
-          <UnsavedChangesNotifier />
-          <DocumentTitleHandler />
+          <MenuProvider>
+            {getLayout(<Component {...pageProps} />)}
+            <RefineKbar />
+            <UnsavedChangesNotifier />
+            <DocumentTitleHandler />
+            <TailwindIndicator />
+          </MenuProvider>
         </Refine>
       </RefineKbarProvider>
-    </>
+    </ThemeProvider>
   )
 }
 
