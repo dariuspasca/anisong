@@ -1,39 +1,32 @@
-import React from "react";
-import { AppProps } from "next/app";
-import type { NextPage } from "next";
-import { Refine, GitHubBanner } from "@refinedev/core";
-import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
+import React, { ReactElement, ReactNode } from "react"
+import type { NextPage } from "next"
+import { AppProps } from "next/app"
+import { GitHubBanner, Refine } from "@refinedev/core"
+import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar"
 import routerProvider, {
-  UnsavedChangesNotifier,
   DocumentTitleHandler,
-} from "@refinedev/nextjs-router";
+  UnsavedChangesNotifier,
+} from "@refinedev/nextjs-router"
+import { dataProvider } from "@refinedev/supabase"
 
-import { dataProvider } from "@refinedev/supabase";
-import { Layout } from "@components/layout";
-import "@styles/global.css";
-import { authProvider } from "src/authProvider";
-import { supabaseClient } from "src/utility";
+import "@styles/global.css"
 
-export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
-  noLayout?: boolean;
-};
+import { authProvider } from "src/lib/authProvider"
 
+import { supabaseClient } from "@/lib/supabaseClient"
+
+export type NextPageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<
+  P,
+  IP
+> & {
+  getLayout?: (page: ReactElement) => ReactNode
+}
 type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout;
-};
+  Component: NextPageWithLayout
+}
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
-  const renderComponent = () => {
-    if (Component.noLayout) {
-      return <Component {...pageProps} />;
-    }
-
-    return (
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    );
-  };
+  const getLayout = Component.getLayout ?? ((page) => page)
 
   return (
     <>
@@ -48,14 +41,14 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
             warnWhenUnsavedChanges: true,
           }}
         >
-          {renderComponent()}
+          {getLayout(<Component {...pageProps} />)}
           <RefineKbar />
           <UnsavedChangesNotifier />
           <DocumentTitleHandler />
         </Refine>
       </RefineKbarProvider>
     </>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp

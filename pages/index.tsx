@@ -1,7 +1,7 @@
-import { WelcomePage } from "@refinedev/core";
+import { WelcomePage } from "@refinedev/core"
 
 export default function Index() {
-  return <WelcomePage />;
+  return <div>Homepage</div>
 }
 
-Index.noLayout = true;
+Index.noLayout = true
