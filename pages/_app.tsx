@@ -9,7 +9,7 @@ import routerProvider, {
 } from "@refinedev/nextjs-router"
 import { dataProvider } from "@refinedev/supabase"
 
-import "@styles/global.css"
+import "@/styles/global.css"
 
 import { authProvider } from "src/lib/authProvider"
 

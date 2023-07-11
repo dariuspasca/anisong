@@ -1,7 +1,3 @@
-import { WelcomePage } from "@refinedev/core"
-
 export default function Index() {
-  return <div>Homepage</div>
+  return <div className="h-72 bg-red-500">Homepage</div>
 }
-
-Index.noLayout = true
