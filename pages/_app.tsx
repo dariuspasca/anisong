@@ -39,6 +39,13 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
           routerProvider={routerProvider}
           dataProvider={dataProvider(supabaseClient)}
           authProvider={authProvider}
+          resources={[
+            {
+              name: "playlists",
+              list: "/playlists",
+              show: "/playlists/show/:id",
+            },
+          ]}
           options={{
             syncWithLocation: true,
             warnWhenUnsavedChanges: true,

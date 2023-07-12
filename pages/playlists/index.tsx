@@ -1,14 +1,23 @@
 import Head from "next/head"
-import { Authenticated } from "@refinedev/core"
+import { Authenticated, useTable } from "@refinedev/core"
 
 import Layout from "@/components/layout"
 import LoadingScreen from "@/components/loading"
 import PagedHeader from "@/components/page-header"
 import PagedShell from "@/components/page-shell"
 
-import type { NextPageWithLayout } from "./_app"
+import type { NextPageWithLayout } from "../_app"
+import { Playlist, playlistsColumns } from "./columns"
+import { PlaylistsDataTable } from "./data-table"
 
 const PlaylistsPage: NextPageWithLayout = () => {
+  const {
+    tableQueryResult: { data, isLoading },
+  } = useTable<Playlist>()
+  console.log("🚀 ~ file: index.tsx:20 ~ data:", data)
+
+  const tableData = data?.data
+
   return (
     <Authenticated loading={<LoadingScreen />}>
       <Head>
@@ -19,8 +28,11 @@ const PlaylistsPage: NextPageWithLayout = () => {
       <PagedShell>
         <PagedHeader heading="Your playlists" />
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          Dashboard
+        <div className="flex">
+          <PlaylistsDataTable
+            columns={playlistsColumns}
+            data={tableData ?? []}
+          />
         </div>
       </PagedShell>
     </Authenticated>
