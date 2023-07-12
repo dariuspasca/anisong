@@ -44,6 +44,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
               name: "playlists",
               list: "/playlists",
               show: "/playlists/show/:id",
+              create: "/playlists/new",
             },
           ]}
           options={{

@@ -6,7 +6,7 @@ import Layout from "@/components/layout"
 
 import { Playlist } from "../columns"
 
-const PlaylistShow: NextPageWithLayout = () => {
+const PlaylistShowPage: NextPageWithLayout = () => {
   const {
     queryResult: { data, isLoading },
   } = useShow<Playlist>()
@@ -35,8 +35,8 @@ const PlaylistShow: NextPageWithLayout = () => {
   )
 }
 
-PlaylistShow.getLayout = function getLayout(page) {
+PlaylistShowPage.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>
 }
 
-export default PlaylistShow
+export default PlaylistShowPage

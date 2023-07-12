@@ -1,6 +1,9 @@
 import Head from "next/head"
+import Link from "next/link"
 import { Authenticated, useTable } from "@refinedev/core"
 
+import { cn } from "@/lib/utils"
+import { buttonVariants } from "@/components/ui/button"
 import Layout from "@/components/layout"
 import LoadingScreen from "@/components/loading"
 import PagedHeader from "@/components/page-header"
@@ -14,7 +17,6 @@ const PlaylistsPage: NextPageWithLayout = () => {
   const {
     tableQueryResult: { data, isLoading },
   } = useTable<Playlist>()
-  console.log("🚀 ~ file: index.tsx:20 ~ data:", data)
 
   const tableData = data?.data
 
@@ -26,13 +28,24 @@ const PlaylistsPage: NextPageWithLayout = () => {
       </Head>
 
       <PagedShell>
-        <PagedHeader heading="Your playlists" />
+        <PagedHeader heading="Your playlists">
+          <Link
+            href="/playlists/new"
+            className={cn(buttonVariants({ variant: "default" }))}
+          >
+            New Playlist
+          </Link>
+        </PagedHeader>
 
         <div className="flex">
-          <PlaylistsDataTable
-            columns={playlistsColumns}
-            data={tableData ?? []}
-          />
+          {isLoading ? (
+            <div>Loading...</div>
+          ) : (
+            <PlaylistsDataTable
+              columns={playlistsColumns}
+              data={tableData ?? []}
+            />
+          )}
         </div>
       </PagedShell>
     </Authenticated>
