@@ -6,14 +6,14 @@ console.log(`Function "search-anime" up and running!`)
 const MAL_API_KEY = Deno.env.get("MAL_API_KEY") ?? ""
 const SEARCH_LIMIT = 5
 
-interface MalResponse {
+export interface MalResponse {
   data: MalAnime[]
   paging: {
     next: string
   }
 }
 
-interface MalAnime {
+export interface MalAnime {
   node: {
     id: number
     title: string

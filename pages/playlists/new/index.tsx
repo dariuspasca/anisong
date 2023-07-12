@@ -2,6 +2,9 @@ import Head from "next/head"
 import { NextPageWithLayout } from "pages/_app"
 
 import Layout from "@/components/layout"
+import NewPlaylistForm from "@/components/new-playlist-form"
+import PagedHeader from "@/components/page-header"
+import PagedShell from "@/components/page-shell"
 
 const NewPlaylistPage: NextPageWithLayout = () => {
   return (
@@ -10,7 +13,11 @@ const NewPlaylistPage: NextPageWithLayout = () => {
         <title>New playlist | Anisong</title>
       </Head>
 
-      <div>new</div>
+      <PagedShell>
+        <PagedHeader heading="Create a new playlist" />
+
+        <NewPlaylistForm />
+      </PagedShell>
     </>
   )
 }
