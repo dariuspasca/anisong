@@ -4,8 +4,8 @@ import { MenuContext } from "@/context/menu-context"
 import type { NavItem } from "@/types"
 
 import { siteConfig } from "@/config/siteConfig"
+import Icons from "@/components/icons"
 
-import { Icons } from "./icons"
 import { MobileNav } from "./mobile-nav"
 
 interface HeaderProps {

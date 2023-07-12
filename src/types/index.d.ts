@@ -19,3 +19,9 @@ export type SiteConfig = {
   description: string
   url: string
 }
+
+interface IUserIdentity {
+  id?: BaseKey
+  username?: string
+  name: string
+}

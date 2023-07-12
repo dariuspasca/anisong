@@ -4,6 +4,6 @@ import { getBaseUrl } from "@/lib/utils"
 
 export const siteConfig: SiteConfig = {
   name: "Anisong",
-  description: "Generate your favorite animes playlist",
+  description: "Create your favorite animes playlist",
   url: getBaseUrl(),
 }

@@ -3,43 +3,45 @@ import nookies from "nookies"
 
 import { supabaseClient } from "@/lib/supabaseClient"
 
+interface AuthInfo {
+  type: "email" | "github"
+  email?: string
+  redirect: boolean
+}
+
 export const authProvider: AuthBindings = {
-  login: async ({ email, password }) => {
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-      email,
-      password,
-    })
+  login: async (auth: AuthInfo) => {
+    try {
+      if (auth.type === "github") {
+        const { error } = await supabaseClient.auth.signInWithOAuth({
+          provider: "github",
+        })
 
-    if (error) {
-      return {
-        success: false,
-        error,
+        if (error) {
+          throw error
+        }
+      } else if (auth.type === "email" && auth.email) {
+        const { error } = await supabaseClient.auth.signInWithOtp({
+          email: auth.email,
+        })
+
+        if (error) {
+          throw error
+        }
       }
-    }
-
-    if (data?.session) {
-      nookies.set(null, "token", data.session.access_token, {
-        maxAge: 30 * 24 * 60 * 60,
-        path: "/",
-      })
 
       return {
         success: true,
-        redirectTo: "/",
       }
-    }
-
-    // for third-party login
-    return {
-      success: false,
-      error: {
-        name: "LoginError",
-        message: "Invalid username or password",
-      },
+    } catch (e: any) {
+      alert(e.message)
+      return {
+        success: false,
+        e,
+      }
     }
   },
   logout: async () => {
-    nookies.destroy(null, "token")
     const { error } = await supabaseClient.auth.signOut()
 
     if (error) {
@@ -54,44 +56,9 @@ export const authProvider: AuthBindings = {
       redirectTo: "/login",
     }
   },
-  register: async ({ email, password }) => {
-    try {
-      const { data, error } = await supabaseClient.auth.signUp({
-        email,
-        password,
-      })
 
-      if (error) {
-        return {
-          success: false,
-          error,
-        }
-      }
-
-      if (data) {
-        return {
-          success: true,
-          redirectTo: "/",
-        }
-      }
-    } catch (error: any) {
-      return {
-        success: false,
-        error,
-      }
-    }
-
-    return {
-      success: false,
-      error: {
-        message: "Register failed",
-        name: "Invalid email or password",
-      },
-    }
-  },
-  check: async (ctx) => {
-    const { token } = nookies.get(ctx)
-    const { data } = await supabaseClient.auth.getUser(token)
+  check: async () => {
+    const { data } = await supabaseClient.auth.getUser()
     const { user } = data
 
     if (user) {
@@ -104,15 +71,6 @@ export const authProvider: AuthBindings = {
       authenticated: false,
       redirectTo: "/login",
     }
-  },
-  getPermissions: async () => {
-    const user = await supabaseClient.auth.getUser()
-
-    if (user) {
-      return user.data.user?.role
-    }
-
-    return null
   },
   getIdentity: async () => {
     const { data } = await supabaseClient.auth.getUser()

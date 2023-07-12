@@ -2,7 +2,7 @@ import React, { ReactElement, ReactNode } from "react"
 import type { NextPage } from "next"
 import { AppProps } from "next/app"
 import { MenuProvider } from "@/context/menu-context"
-import { GitHubBanner, Refine } from "@refinedev/core"
+import { Refine } from "@refinedev/core"
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar"
 import routerProvider, {
   DocumentTitleHandler,
@@ -16,6 +16,8 @@ import { supabaseClient } from "@/lib/supabaseClient"
 import TailwindIndicator from "@/components/tailwind-indicator"
 
 import "@/styles/global.css"
+
+import { Toaster } from "@/components/ui/toaster"
 
 export type NextPageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<
   P,
@@ -48,6 +50,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
             <UnsavedChangesNotifier />
             <DocumentTitleHandler />
             <TailwindIndicator />
+            <Toaster />
           </MenuProvider>
         </Refine>
       </RefineKbarProvider>

@@ -5,7 +5,7 @@ import type { NavItem } from "@/types"
 import { siteConfig } from "@/config/siteConfig"
 import { cn } from "@/lib/utils"
 import { useLockBody } from "@/hooks/use-lock-body"
-import { Icons } from "@/components/icons"
+import Icons from "@/components/icons"
 
 interface MobileNavProps {
   items: NavItem[]
