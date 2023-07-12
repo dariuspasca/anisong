@@ -32,13 +32,13 @@ const IndexPage: NextPageWithLayout = () => {
             </Link>
             <nav>
               <Link
-                href={data?.authenticated ? "/dashboard" : "/login"}
+                href={data?.authenticated ? "/playlists" : "/login"}
                 className={cn(
                   buttonVariants({ variant: "secondary", size: "sm" }),
                   "px-4"
                 )}
               >
-                {data?.authenticated ? "Dashboard" : "Login"}
+                {data?.authenticated ? "Playlists" : "Login"}
               </Link>
             </nav>
           </div>

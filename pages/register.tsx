@@ -19,7 +19,7 @@ const RegisterPage: NextPageWithLayout = () => {
   }
 
   if (data?.authenticated) {
-    go({ to: "/dashboard", type: "replace" })
+    go({ to: "/playlists", type: "replace" })
   }
 
   return (
