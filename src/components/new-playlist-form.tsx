@@ -5,21 +5,21 @@ import { useForm } from "@refinedev/react-hook-form"
 import { MalAnime } from "supabase/functions/search-anime"
 import * as z from "zod"
 
+import { cn } from "@/lib/utils"
+import useCreatePlaylist from "@/hooks/use-create-playlist"
+import { buttonVariants } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useToast } from "@/components/ui/use-toast"
-import SearchAnime from "@/components//search-anime"
+import Icons from "@/components/icons"
+import SearchAnime from "@/components/search-anime"
 
 const newPlaylistSchema = z.object({
   title: z.string().min(3, { message: "Required" }),
-  description: z.string(),
 })
 
 type FormData = z.infer<typeof newPlaylistSchema>
 
 function NewPlaylistForm() {
-  const { toast } = useToast()
-
   const {
     register,
     handleSubmit,
@@ -27,23 +27,19 @@ function NewPlaylistForm() {
   } = useForm<FormData>({
     resolver: zodResolver(newPlaylistSchema),
   })
+
   const [animes, setAnimes] = React.useState<MalAnime[]>([])
-  console.log(
-    "🚀 ~ file: new-playlist-form.tsx:31 ~ NewPlaylistForm ~ animes:",
-    animes
-  )
+  const { isLoading, createPlaylist } = useCreatePlaylist()
 
   async function onSubmit(data: FormData) {
-    console.log(data)
+    createPlaylist(data.title, animes)
   }
-
-  const handleAnimeSelect = (anime: MalAnime) => {}
 
   return (
     <div className="grid gap-6">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid gap-2">
-          <div className="grid gap-1">
+        <div className="flex w-full">
+          <div className="flex w-full">
             <Label className="sr-only" htmlFor="title">
               Title
             </Label>
@@ -81,6 +77,10 @@ function NewPlaylistForm() {
             )
           })}
         </div>
+        <button type="submit" className={cn(buttonVariants(), "mt-10")}>
+          {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
+          Create
+        </button>
       </form>
     </div>
   )

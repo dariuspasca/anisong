@@ -6,13 +6,21 @@ console.log(`Function "get-song" up and running!`)
 const MAL_API_KEY = Deno.env.get("MAL_API_KEY") ?? ""
 
 interface MalAnime {
-  opening_themes?: Array<MalAnimeSong>
-  ending_themes?: Array<MalAnimeSong>
+  id: number
+  opening_themes?: Array<MalAnimeTrack>
+  ending_themes?: Array<MalAnimeTrack>
 }
 
-interface MalAnimeSong {
+interface MalAnimeTrack {
+  id: number
+  text: string
+}
+
+export interface Track {
   id: number
   title: string
+  author?: string
+  anime_mal_id: number
 }
 
 const malFetchConfig = {
@@ -23,6 +31,27 @@ const malFetchConfig = {
   },
 }
 
+const titleReg = new RegExp('(?<=")(.*?)(?=")')
+const authorReg = new RegExp("(?<=by\\s+)(.*?)(?=$|\\s+\\()")
+
+function ParseTrack(
+  track: MalAnimeTrack,
+  animeMalId: number
+): Track | undefined {
+  const unparsedSong = track.text
+  const title = titleReg.exec(unparsedSong)
+  if (title) {
+    const author = authorReg.exec(unparsedSong)
+    return {
+      title: title[0],
+      author: author ? author[0] : undefined,
+      id: track.id,
+      anime_mal_id: animeMalId,
+    }
+  }
+  return undefined
+}
+
 serve(async (req) => {
   // This is needed if you're planning to invoke your function from a browser.
   if (req.method === "OPTIONS") {
@@ -30,15 +59,35 @@ serve(async (req) => {
   }
 
   try {
-    const { malId } = await req.json()
-    const url = `https://api.myanimelist.net/v2/anime/${malId}?fields=opening_themes%2Cending_themes`
+    const { malIds }: { malIds: string[] } = await req.json()
 
-    const data: MalAnime = await fetch(url, malFetchConfig).then((res) =>
-      res.json()
-    )
-    console.log("🚀 ~ file: index.ts:36 ~ serve ~ data:", data)
+    const urlTemplate =
+      "https://api.myanimelist.net/v2/anime/<malId>?fields=opening_themes%2Cending_themes"
+    const promises: Promise<MalAnime>[] = malIds.map((id: string) => {
+      const url = urlTemplate.replace("<malId>", id.toString())
 
-    return new Response(JSON.stringify(data), {
+      return fetch(url, malFetchConfig).then((res) => res.json())
+    })
+
+    const results: MalAnime[] = await Promise.all(promises)
+
+    const animesTracks = results.map((anime) => {
+      let tracksList: Array<MalAnimeTrack> = []
+      if (anime.opening_themes) {
+        tracksList = tracksList.concat(anime.opening_themes)
+      }
+      if (anime.ending_themes) {
+        tracksList = tracksList.concat(anime.ending_themes)
+      }
+
+      const tracks = tracksList.map((track) => {
+        return ParseTrack(track, anime.id)
+      })
+
+      return tracks
+    })
+
+    return new Response(JSON.stringify(animesTracks.flat().filter(Boolean)), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,
     })
