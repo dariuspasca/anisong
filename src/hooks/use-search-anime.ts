@@ -12,9 +12,16 @@ function useSearchAnime() {
 
   const debounceSearchValue = useDebounce(searchValue, 1000)
 
-  const setSearchText = (text: string) => {
-    setIsSearching(true)
-    setSearchValue(text)
+  function setSearchText(text: string) {
+    if (text.trim() !== "") {
+      setIsSearching(true)
+      setSearchValue(text)
+    }
+  }
+
+  function clear() {
+    setAnimes([])
+    setSearchValue("")
   }
 
   React.useEffect(() => {
@@ -31,7 +38,7 @@ function useSearchAnime() {
     fetchData()
   }, [debounceSearchValue])
 
-  return { setSearchText, isSearching, animes }
+  return { searchValue, setSearchText, isSearching, animes, clear }
 }
 
 export default useSearchAnime

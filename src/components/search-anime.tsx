@@ -24,7 +24,8 @@ interface SearchAnimeProps {
 
 function SearchAnime({ onSelect }: SearchAnimeProps) {
   const [open, setOpen] = React.useState(false)
-  const { setSearchText, isSearching, animes } = useSearchAnime()
+  const { searchValue, setSearchText, isSearching, animes, clear } =
+    useSearchAnime()
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -45,7 +46,7 @@ function SearchAnime({ onSelect }: SearchAnimeProps) {
             onValueChange={(search) => setSearchText(search)}
             placeholder="Search anime..."
           />
-          {!isSearching && animes.length === 0 && (
+          {!isSearching && animes.length === 0 && searchValue !== "" && (
             <CommandEmpty>No anime found.</CommandEmpty>
           )}
           {isSearching && <CommandEmpty>Searching animes...</CommandEmpty>}
@@ -56,9 +57,10 @@ function SearchAnime({ onSelect }: SearchAnimeProps) {
                 <CommandItem
                   key={anime.node.id}
                   value={anime.node.title}
-                  onSelect={(currentValue) => {
+                  onSelect={() => {
                     onSelect(anime)
                     setOpen(false)
+                    clear()
                   }}
                 >
                   {anime.node.title}

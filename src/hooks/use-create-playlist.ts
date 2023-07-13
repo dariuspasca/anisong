@@ -1,14 +1,15 @@
 import * as React from "react"
 import { IUserIdentity } from "@/types"
-import { useGetIdentity } from "@refinedev/core"
+import { useGetIdentity, useGo } from "@refinedev/core"
 import { Track } from "supabase/functions/get-song"
-import { MalAnime, MalResponse } from "supabase/functions/search-anime"
+import { MalAnime } from "supabase/functions/search-anime"
 
 import { supabaseClient } from "@/lib/supabaseClient"
 
 function useCreatePlaylist() {
   const { data: userIdentity } = useGetIdentity<IUserIdentity>()
   const [isLoading, setIsLoading] = React.useState(false)
+  const go = useGo()
 
   async function createPlaylist(title: string, animes: MalAnime[]) {
     setIsLoading(true)
@@ -29,6 +30,8 @@ function useCreatePlaylist() {
       }
 
       await addTracksToPlaylist(newTracks || [], playlist[0].id)
+
+      go({ to: `/playlists/show/${playlist[0].id}` })
 
       setIsLoading(false)
     } catch (err) {
@@ -127,7 +130,7 @@ async function addTracks(
 
 async function addTracksToPlaylist(tracks: string[], playlistId: string) {
   try {
-    const { error: upsertError } = await supabaseClient
+    const { data, error: upsertError } = await supabaseClient
       .from("playlist_tracks")
       .upsert(
         tracks.map((track) => ({
@@ -139,8 +142,6 @@ async function addTracksToPlaylist(tracks: string[], playlistId: string) {
     if (upsertError) {
       throw upsertError
     }
-
-    return true
   } catch (err) {
     console.error(err)
   }
