@@ -1,7 +1,7 @@
 import * as React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useLogin } from "@refinedev/core"
-import { useForm } from "@refinedev/react-hook-form"
+import { useForm } from "react-hook-form"
 import * as z from "zod"
 
 import { cn } from "@/lib/utils"
