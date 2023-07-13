@@ -1,17 +1,18 @@
 import Head from "next/head"
 import Link from "next/link"
+import { Playlist } from "@/types"
 import { Authenticated, useTable } from "@refinedev/core"
 
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
+import { DataTable } from "@/components/data-table"
 import Layout from "@/components/layout"
 import LoadingScreen from "@/components/loading"
 import PagedHeader from "@/components/page-header"
 import PagedShell from "@/components/page-shell"
 
 import type { NextPageWithLayout } from "../_app"
-import { Playlist, playlistsColumns } from "./columns"
-import { PlaylistsDataTable } from "./data-table"
+import { playlistsColumns } from "./columns"
 
 const PlaylistsPage: NextPageWithLayout = () => {
   const {
@@ -41,10 +42,7 @@ const PlaylistsPage: NextPageWithLayout = () => {
           {isLoading ? (
             <div>Loading...</div>
           ) : (
-            <PlaylistsDataTable
-              columns={playlistsColumns}
-              data={tableData ?? []}
-            />
+            <DataTable columns={playlistsColumns} data={tableData ?? []} />
           )}
         </div>
       </PagedShell>

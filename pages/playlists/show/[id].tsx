@@ -1,36 +1,51 @@
 import Head from "next/head"
-import { useShow } from "@refinedev/core"
+import { Playlist, Track } from "@/types"
+import { useShow, useTable } from "@refinedev/core"
 import { NextPageWithLayout } from "pages/_app"
 
-import Layout from "@/components/layout"
-
-import { Playlist } from "../columns"
+import LoadingScreen from "@/components/loading"
+import PlaylistViewer from "@/components/playlist-viewer"
 
 const PlaylistShowPage: NextPageWithLayout = () => {
   const {
     queryResult: { data, isLoading },
-  } = useShow<Playlist>()
+  } = useShow<Playlist>({
+    meta: {
+      select: "*, playlist_tracks(track_id)",
+    },
+  })
 
-  const postData = data?.data
+  const playlist = data?.data
+
+  const {
+    tableQueryResult: { data: tracks, isLoading: isLoadingTracks },
+  } = useTable<Track>({
+    resource: "tracks",
+    meta: { select: "*, animes(*)" },
+    filters: {
+      mode: "server",
+      permanent: [
+        {
+          field: "id",
+          operator: "in",
+          value: playlist?.playlist_tracks.map((track) => track.track_id) ?? [],
+        },
+      ],
+    },
+  })
+
+  if (isLoading || isLoadingTracks) <LoadingScreen />
 
   return (
     <>
       <Head>
-        <title>{postData?.title} | Anisong</title>
-        {postData?.description && (
-          <meta name="description" content={postData?.description} />
+        <title>{playlist?.title} | Anisong</title>
+        {playlist?.description && (
+          <meta name="description" content={playlist?.description} />
         )}
       </Head>
 
-      <div>
-        {isLoading && <p>Loading...</p>}
-        {!isLoading && (
-          <>
-            <h1>{postData?.title}</h1>
-            <p>{postData?.description}</p>
-          </>
-        )}
-      </div>
+      <PlaylistViewer playlist={playlist} tracks={tracks?.data ?? []} />
     </>
   )
 }

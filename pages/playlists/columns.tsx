@@ -1,12 +1,5 @@
+import { Playlist } from "@/types"
 import { ColumnDef } from "@tanstack/react-table"
-
-export interface Playlist {
-  id: string
-  title: string
-  description: string
-  profile_id: string
-  public: boolean
-}
 
 export const playlistsColumns: ColumnDef<Playlist>[] = [
   {

@@ -16,7 +16,7 @@ interface MalAnimeTrack {
   text: string
 }
 
-export interface Track {
+export interface TrackResponse {
   id: number
   title: string
   author?: string
@@ -37,7 +37,7 @@ const authorReg = new RegExp("(?<=by\\s+)(.*?)(?=$|\\s+\\()")
 function ParseTrack(
   track: MalAnimeTrack,
   animeMalId: number
-): Track | undefined {
+): TrackResponse | undefined {
   const unparsedSong = track.text
   const title = titleReg.exec(unparsedSong)
   if (title) {

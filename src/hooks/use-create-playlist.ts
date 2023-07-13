@@ -1,7 +1,7 @@
 import * as React from "react"
 import { IUserIdentity } from "@/types"
 import { useGetIdentity, useGo } from "@refinedev/core"
-import { Track } from "supabase/functions/get-song"
+import { TrackResponse } from "supabase/functions/get-song"
 import { MalAnime } from "supabase/functions/search-anime"
 
 import { supabaseClient } from "@/lib/supabaseClient"
@@ -46,9 +46,12 @@ function useCreatePlaylist() {
 export default useCreatePlaylist
 
 async function fetchAnimeTracks(ids: string[]) {
-  const res = await supabaseClient.functions.invoke<Track[]>("get-song", {
-    body: { malIds: ids },
-  })
+  const res = await supabaseClient.functions.invoke<TrackResponse[]>(
+    "get-song",
+    {
+      body: { malIds: ids },
+    }
+  )
   return res.data ?? []
 }
 
@@ -93,7 +96,7 @@ async function addAnimes(animes: MalAnime[]) {
 }
 
 async function addTracks(
-  tracks: Track[],
+  tracks: TrackResponse[],
   animesList: { [key: string]: number }
 ) {
   try {
