@@ -7,8 +7,10 @@ import {
   ListMusic,
   Loader2,
   Moon,
+  MoreVertical,
   Search,
   SunMedium,
+  Trash,
   X,
   type Icon as LucideIcon,
 } from "lucide-react"
@@ -27,6 +29,8 @@ const Icons = {
   sun: SunMedium,
   spinner: Loader2,
   moon: Moon,
+  more: MoreVertical,
+  trash: Trash,
 }
 
 export default Icons

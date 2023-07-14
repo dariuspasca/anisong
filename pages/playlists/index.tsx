@@ -17,7 +17,11 @@ import { playlistsColumns } from "./columns"
 const PlaylistsPage: NextPageWithLayout = () => {
   const {
     tableQueryResult: { data, isLoading },
-  } = useTable<Playlist>()
+  } = useTable<Playlist>({
+    meta: {
+      select: "*, playlist_tracks(playlist_id)",
+    },
+  })
 
   const tableData = data?.data
 
@@ -38,7 +42,7 @@ const PlaylistsPage: NextPageWithLayout = () => {
           </Link>
         </PagedHeader>
 
-        <div className="flex">
+        <div>
           {isLoading ? (
             <div>Loading...</div>
           ) : (

@@ -50,6 +50,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
           options={{
             syncWithLocation: true,
             warnWhenUnsavedChanges: true,
+            mutationMode: "optimistic",
           }}
         >
           <MenuProvider>
