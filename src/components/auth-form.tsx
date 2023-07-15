@@ -34,7 +34,7 @@ function AuthForm() {
       {
         type: "email",
         email: data.email.toLowerCase(),
-        redirect: false,
+        redirectTo: "/playlists",
       },
       {
         onSuccess: () => {
@@ -100,7 +100,7 @@ function AuthForm() {
         type="button"
         className={cn(buttonVariants({ variant: "outline" }))}
         onClick={() => {
-          login({ type: "github" })
+          login({ type: "github", redirectTo: "/playlists" })
         }}
         disabled={isLoading}
       >

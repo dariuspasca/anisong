@@ -3,10 +3,10 @@ import { IUserIdentity } from "@/types"
 import { useGetIdentity } from "@refinedev/core"
 
 import { navigationConfig } from "@/config/navigationConfig"
-import { UserAccount } from "@/components/ui/user-account"
 import Header from "@/components/header"
 import SidebarNav from "@/components/sidebar-nav"
 import { SiteFooter } from "@/components/site-footer"
+import { UserAccount } from "@/components/user-account"
 
 interface LayoutProps {
   children: React.ReactNode

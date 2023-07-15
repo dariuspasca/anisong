@@ -3,6 +3,7 @@ import { Playlist, Track } from "@/types"
 import { useShow, useTable } from "@refinedev/core"
 import { NextPageWithLayout } from "pages/_app"
 
+import { settingsConfig } from "@/config/settingsConfig"
 import LoadingScreen from "@/components/loading"
 import PlaylistViewer from "@/components/playlist-viewer"
 
@@ -41,7 +42,10 @@ const PlaylistShowPage: NextPageWithLayout = () => {
       <Head>
         <title>{playlist?.title} | Anisong</title>
         {playlist?.description && (
-          <meta name="description" content={playlist?.description} />
+          <meta
+            name="description"
+            content={playlist?.description ?? settingsConfig.description}
+          />
         )}
       </Head>
 

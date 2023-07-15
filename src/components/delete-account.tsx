@@ -1,6 +1,7 @@
 import * as React from "react"
-import { useDelete } from "@refinedev/core"
+import { useLogout } from "@refinedev/core"
 
+import { supabaseClient } from "@/lib/supabaseClient"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,64 +12,46 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import { toast } from "@/components/ui/use-toast"
 import Icons from "@/components/icons"
 
-interface PlaylistActionsProps {
-  playlistId: string
-}
-
-export function PlaylistActions({ playlistId }: PlaylistActionsProps) {
-  const { mutate } = useDelete()
+export function DeleteAccount() {
+  const { mutate: logout } = useLogout()
   const [showDeleteAlert, setShowDeleteAlert] = React.useState<boolean>(false)
   const [isDeleteLoading, setIsDeleteLoading] = React.useState<boolean>(false)
 
-  async function deletePlaylist(playlistId: string) {
-    mutate(
-      {
-        resource: "playlists",
-        id: playlistId,
-      },
-      {
-        onError: () =>
-          toast({
-            title: "Something went wrong.",
-            description: "Your playlist was not deleted. Please try again.",
-            variant: "destructive",
-          }),
-      }
-    )
-
-    return true
-  }
-
   return (
     <>
-      <DropdownMenu>
-        <DropdownMenuTrigger className="flex h-8 w-8 items-center justify-center rounded-md border transition-colors hover:bg-muted">
-          <Icons.more className="h-4 w-4" />
-          <span className="sr-only">Open</span>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem
-            className="flex cursor-pointer items-center text-destructive focus:text-destructive"
-            onSelect={() => setShowDeleteAlert(true)}
+      <Card className="mt-8 border-destructive">
+        <CardHeader>
+          <CardTitle>Delete Account</CardTitle>
+          <CardDescription>
+            Once you delete your account, there is no going back. Please be
+            certain.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Button
+            onClick={() => setShowDeleteAlert(true)}
+            variant="destructive"
           >
             Delete
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+          </Button>
+        </CardContent>
+      </Card>
       <AlertDialog open={showDeleteAlert} onOpenChange={setShowDeleteAlert}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              Are you sure you want to delete this playlist?
+              Are you sure you want to delete your account?
             </AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone.
@@ -81,11 +64,20 @@ export function PlaylistActions({ playlistId }: PlaylistActionsProps) {
                 event.preventDefault()
                 setIsDeleteLoading(true)
 
-                const deleted = await deletePlaylist(playlistId)
+                const { error } = await supabaseClient.rpc("delete_user")
 
-                if (deleted) {
-                  setIsDeleteLoading(false)
-                  setShowDeleteAlert(false)
+                setIsDeleteLoading(false)
+                setShowDeleteAlert(false)
+
+                if (error) {
+                  toast({
+                    title: "Something went wrong.",
+                    description:
+                      "Your playlist was not deleted. Please try again.",
+                    variant: "destructive",
+                  })
+                } else {
+                  logout({ redirectPath: "/" })
                 }
               }}
               className="bg-red-600 focus:ring-red-600"

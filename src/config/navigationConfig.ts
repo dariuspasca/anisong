@@ -7,5 +7,10 @@ export const navigationConfig: NavigationConfig = {
       href: "/playlists",
       icon: "playlists",
     },
+    {
+      title: "Setting",
+      href: "/settings",
+      icon: "settings",
+    },
   ],
 }

@@ -1,12 +1,13 @@
 import { AuthBindings } from "@refinedev/core"
-import nookies from "nookies"
 
 import { supabaseClient } from "@/lib/supabaseClient"
+
+import { getBaseUrl } from "./utils"
 
 interface AuthInfo {
   type: "email" | "github"
   email?: string
-  redirect: boolean
+  redirectTo: string
 }
 
 export const authProvider: AuthBindings = {
@@ -15,6 +16,7 @@ export const authProvider: AuthBindings = {
       if (auth.type === "github") {
         const { error } = await supabaseClient.auth.signInWithOAuth({
           provider: "github",
+          options: { redirectTo: `${getBaseUrl}/${auth.redirectTo}` },
         })
 
         if (error) {
@@ -23,6 +25,7 @@ export const authProvider: AuthBindings = {
       } else if (auth.type === "email" && auth.email) {
         const { error } = await supabaseClient.auth.signInWithOtp({
           email: auth.email,
+          options: { emailRedirectTo: `${getBaseUrl}/${auth.redirectTo}` },
         })
 
         if (error) {
@@ -32,6 +35,7 @@ export const authProvider: AuthBindings = {
 
       return {
         success: true,
+        redirectTo: auth.redirectTo,
       }
     } catch (e: any) {
       alert(e.message)

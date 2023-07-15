@@ -1,4 +1,3 @@
-import Link from "next/link"
 import { IUserIdentity } from "@/types"
 import { useLogout } from "@refinedev/core"
 
@@ -12,14 +11,11 @@ import {
 } from "@/components/ui/dropdown-menu"
 import Icons from "@/components/icons"
 
-import ThemeToggle from "../theme-toggle"
-
 interface UserAccountProps extends React.HTMLAttributes<HTMLDivElement> {
   user: IUserIdentity
 }
 
 export function UserAccount({ user }: UserAccountProps) {
-  console.log("🚀 ~ file: user-account.tsx:20 ~ UserAccount ~ user:", user)
   const { mutate: logout } = useLogout()
 
   return (
@@ -48,16 +44,14 @@ export function UserAccount({ user }: UserAccountProps) {
           </div>
         </div>
         <DropdownMenuSeparator />
-
-        <DropdownMenuSeparator />
         <DropdownMenuItem
           className="cursor-pointer"
           onSelect={(event) => {
             event.preventDefault()
-            logout()
+            logout({ redirectPath: "/" })
           }}
         >
-          Sign out
+          Log out
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

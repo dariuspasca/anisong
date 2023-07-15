@@ -22,6 +22,12 @@ export type SiteConfig = {
   github: string
 }
 
+export type SettingsConfig = {
+  name: string
+  description: string
+  url: string
+}
+
 interface IUserIdentity {
   id?: BaseKey
   username?: string
