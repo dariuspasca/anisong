@@ -11,6 +11,7 @@ import {
   Search,
   SunMedium,
   Trash,
+  User,
   X,
   type Icon as LucideIcon,
 } from "lucide-react"
@@ -31,6 +32,7 @@ const Icons = {
   moon: Moon,
   more: MoreVertical,
   trash: Trash,
+  user: User,
 }
 
 export default Icons

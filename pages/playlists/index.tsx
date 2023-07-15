@@ -6,6 +6,7 @@ import { Authenticated, useTable } from "@refinedev/core"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { DataTable } from "@/components/data-table"
+import EmptyPlaceholder from "@/components/empty-placeholder"
 import Layout from "@/components/layout"
 import LoadingScreen from "@/components/loading"
 import PagedHeader from "@/components/page-header"
@@ -43,8 +44,19 @@ const PlaylistsPage: NextPageWithLayout = () => {
         </PagedHeader>
 
         <div>
-          {isLoading ? (
-            <div>Loading...</div>
+          {isLoading && <div>Loading...</div>}
+
+          {!isLoading && !tableData?.length ? (
+            <EmptyPlaceholder>
+              <EmptyPlaceholder.Icon name="playlists" />
+              <EmptyPlaceholder.Title>
+                No playlists created
+              </EmptyPlaceholder.Title>
+              <EmptyPlaceholder.Description>
+                You don&apos;t have any playlist. Start creating your first
+                playlist.
+              </EmptyPlaceholder.Description>
+            </EmptyPlaceholder>
           ) : (
             <DataTable columns={playlistsColumns} data={tableData ?? []} />
           )}

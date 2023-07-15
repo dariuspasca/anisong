@@ -19,12 +19,17 @@ export type SiteConfig = {
   name: string
   description: string
   url: string
+  github: string
 }
 
 interface IUserIdentity {
   id?: BaseKey
   username?: string
   name: string
+  email: string
+  user_metadata: {
+    avatar_url: string
+  }
 }
 
 export interface Playlist {

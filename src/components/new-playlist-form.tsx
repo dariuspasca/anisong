@@ -62,11 +62,15 @@ function NewPlaylistForm() {
               </>
             </Link>
           </div>
-          <button type="submit" className={cn(buttonVariants())}>
+          <button
+            type="submit"
+            disabled={isLoading}
+            className={cn(buttonVariants())}
+          >
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
-            <span>Create</span>
+            <span>{isLoading ? "Creating" : "Create"}</span>
           </button>
         </div>
         <div className="container mx-auto grid max-w-[600px] gap-8">

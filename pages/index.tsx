@@ -1,7 +1,6 @@
 import Head from "next/head"
 import Link from "next/link"
-import { IUserIdentity } from "@/types"
-import { useGetIdentity, useIsAuthenticated } from "@refinedev/core"
+import { useIsAuthenticated } from "@refinedev/core"
 
 import { siteConfig } from "@/config/siteConfig"
 import { cn } from "@/lib/utils"
