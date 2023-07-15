@@ -40,7 +40,7 @@ export const playlistsColumns: ColumnDef<Playlist>[] = [
       const isPublic: boolean = row.getValue("public")
 
       return (
-        <div className="w-[65px] rounded-md bg-muted-foreground  text-center text-muted">
+        <div className="w-[65px] rounded-md bg-pink-600  text-center text-slate-300">
           {isPublic ? "Public" : "Private"}
         </div>
       )

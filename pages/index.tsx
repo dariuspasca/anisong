@@ -18,6 +18,7 @@ const IndexPage: NextPageWithLayout = () => {
       <Head>
         <title>Anisong</title>
         <meta name="description" content={siteConfig.description} />
+        <link rel="shortcut icon" href="/favicon.png" />
       </Head>
 
       <div className="flex min-h-screen flex-col">
