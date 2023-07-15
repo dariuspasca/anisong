@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Playlist } from "@/types"
 import { Authenticated, useTable } from "@refinedev/core"
 
+import { playlistConfig } from "@/config/playlistConfig"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { DataTable } from "@/components/data-table"
@@ -29,11 +30,14 @@ const PlaylistsPage: NextPageWithLayout = () => {
   return (
     <Authenticated loading={<LoadingScreen />}>
       <Head>
-        <title>Playlists | Anisong</title>
+        <title>{playlistConfig.name} | Anisong</title>
       </Head>
 
       <PagedShell>
-        <PagedHeader heading="Your playlists">
+        <PagedHeader
+          heading={playlistConfig.name}
+          text={playlistConfig.description}
+        >
           <Link
             href="/playlists/new"
             className={cn(buttonVariants({ variant: "default" }))}
@@ -55,6 +59,12 @@ const PlaylistsPage: NextPageWithLayout = () => {
                 You don&apos;t have any playlist. Start creating your first
                 playlist.
               </EmptyPlaceholder.Description>
+              <Link
+                href="/playlists/new"
+                className={cn(buttonVariants({ variant: "default" }))}
+              >
+                Create your first playlist
+              </Link>
             </EmptyPlaceholder>
           ) : (
             <DataTable columns={playlistsColumns} data={tableData ?? []} />

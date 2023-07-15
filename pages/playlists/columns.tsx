@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Playlist } from "@/types"
 import { ColumnDef } from "@tanstack/react-table"
 
@@ -7,6 +8,16 @@ export const playlistsColumns: ColumnDef<Playlist>[] = [
   {
     accessorKey: "title",
     header: "Title",
+    cell: ({ row }) => {
+      const id: string = row.getValue("id")
+      const title: boolean = row.getValue("title")
+
+      return (
+        <Link href={`/playlists/show/${id}`} className=" hover:underline">
+          {title}
+        </Link>
+      )
+    },
   },
   {
     accessorKey: "description",

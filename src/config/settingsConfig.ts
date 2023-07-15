@@ -1,9 +1,6 @@
-import type { SettingsConfig } from "@/types"
+import type { PageConfig } from "@/types"
 
-import { getBaseUrl } from "@/lib/utils"
-
-export const settingsConfig: SettingsConfig = {
+export const settingsConfig: PageConfig = {
   name: "Settings",
   description: "Manage your account",
-  url: getBaseUrl(),
 }

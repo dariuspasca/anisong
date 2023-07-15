@@ -22,10 +22,9 @@ export type SiteConfig = {
   github: string
 }
 
-export type SettingsConfig = {
+export type PageConfig = {
   name: string
   description: string
-  url: string
 }
 
 interface IUserIdentity {
