@@ -7,7 +7,7 @@ import * as z from "zod"
 
 import { cn } from "@/lib/utils"
 import useCreatePlaylist from "@/hooks/use-create-playlist"
-import { buttonVariants } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Icons from "@/components/icons"
@@ -62,16 +62,12 @@ function NewPlaylistForm() {
               </>
             </Link>
           </div>
-          <button
-            type="submit"
-            disabled={isLoading}
-            className={cn(buttonVariants())}
-          >
+          <Button type="submit" disabled={isLoading}>
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
             <span>{isLoading ? "Creating" : "Create"}</span>
-          </button>
+          </Button>
         </div>
         <div className="container mx-auto grid max-w-[600px] gap-8">
           <div className="space-y-2">

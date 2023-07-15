@@ -4,8 +4,7 @@ import { useLogin } from "@refinedev/core"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useToast } from "@/components/ui/use-toast"
@@ -78,12 +77,12 @@ function AuthForm() {
               </p>
             )}
           </div>
-          <button className={cn(buttonVariants())} disabled={isLoading}>
+          <Button type="button" disabled={isLoading}>
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
             Sign In with Email
-          </button>
+          </Button>
         </div>
       </form>
       <div className="relative">
@@ -96,17 +95,17 @@ function AuthForm() {
           </span>
         </div>
       </div>
-      <button
+      <Button
         type="button"
-        className={cn(buttonVariants({ variant: "outline" }))}
+        variant="outline"
+        disabled={isLoading}
         onClick={() => {
           login({ type: "github", redirectTo: "/playlists" })
         }}
-        disabled={isLoading}
       >
         <Icons.github className="mr-2 h-4 w-4" />
         Github
-      </button>
+      </Button>
     </div>
   )
 }
