@@ -1,5 +1,6 @@
-import type { Icons } from "~/components/icons"
 import { MalAnime } from "supabase/functions/search-anime"
+
+import Icons from "@/components/icons"
 
 export type NavItem = {
   title: string
