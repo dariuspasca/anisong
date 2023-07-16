@@ -39,6 +39,7 @@ const IndexPage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
+        <title>Anisong | {siteConfig.description}</title>
         <meta name="description" content={siteConfig.description} />
       </Head>
 

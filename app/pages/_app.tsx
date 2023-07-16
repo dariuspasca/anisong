@@ -5,10 +5,7 @@ import type { AppProps } from "next/app"
 import { MenuProvider } from "@/context/menu-context"
 import { Refine } from "@refinedev/core"
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar"
-import routerProvider, {
-  DocumentTitleHandler,
-  UnsavedChangesNotifier,
-} from "@refinedev/nextjs-router"
+import routerProvider from "@refinedev/nextjs-router"
 import { dataProvider } from "@refinedev/supabase"
 import { ThemeProvider } from "next-themes"
 import { authProvider } from "src/lib/authProvider"
@@ -62,8 +59,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
           <MenuProvider>
             {getLayout(<Component {...pageProps} />)}
             <RefineKbar />
-            <UnsavedChangesNotifier />
-            <DocumentTitleHandler />
             <TailwindIndicator />
             <Toaster />
           </MenuProvider>
