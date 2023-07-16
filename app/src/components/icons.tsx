@@ -8,6 +8,7 @@ import {
   Loader2,
   Moon,
   MoreVertical,
+  Radar,
   Search,
   Settings,
   SunMedium,
@@ -22,6 +23,7 @@ export type Icon = LucideIcon
 const Icons = {
   arrowRight: ArrowRight,
   chevronLeft: ChevronLeft,
+  explore: Radar,
   github: Github,
   close: X,
   playlists: ListMusic,

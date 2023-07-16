@@ -51,6 +51,7 @@ export interface Playlist {
   public: boolean
   playlist_tracks: { track_id: string }[]
   profiles: Profile
+  updated_at: string
 }
 
 export interface Track {
