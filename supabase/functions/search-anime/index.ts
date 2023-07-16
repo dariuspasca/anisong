@@ -1,28 +1,12 @@
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts"
 
 import { corsHeaders } from "../_shared/cors.ts"
+import { type MalResponse } from "./types"
 
 console.log(`Function "search-anime" up and running!`)
 const MAL_API_KEY = Deno.env.get("MAL_API_KEY") ?? ""
 const SEARCH_LIMIT = 5
 
-export interface MalResponse {
-  data: MalAnime[]
-  paging: {
-    next: string
-  }
-}
-
-export interface MalAnime {
-  node: {
-    id: number
-    title: string
-    main_picture: {
-      medium: string
-      large: string
-    }
-  }
-}
 
 const malFetchConfig = {
   method: "GET",

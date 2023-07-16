@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts"
 
 import { corsHeaders } from "../_shared/cors.ts"
+import { type MalAnimeTrack, type TrackResponse } from "./types"
 
 console.log(`Function "get-song" up and running!`)
 const MAL_API_KEY = Deno.env.get("MAL_API_KEY") ?? ""
@@ -9,18 +10,6 @@ interface MalAnime {
   id: number
   opening_themes?: Array<MalAnimeTrack>
   ending_themes?: Array<MalAnimeTrack>
-}
-
-interface MalAnimeTrack {
-  id: number
-  text: string
-}
-
-export interface TrackResponse {
-  id: number
-  title: string
-  author?: string
-  anime_mal_id: number
 }
 
 const malFetchConfig = {
