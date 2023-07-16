@@ -23,7 +23,7 @@ import {
 import { toast } from "@/components/ui/use-toast"
 import Icons from "@/components/icons"
 
-export function DeleteAccount() {
+function AccountDelete() {
   const { mutate: logout } = useLogout()
   const [showDeleteAlert, setShowDeleteAlert] = React.useState<boolean>(false)
   const [isDeleteLoading, setIsDeleteLoading] = React.useState<boolean>(false)
@@ -95,3 +95,5 @@ export function DeleteAccount() {
     </>
   )
 }
+
+export default AccountDelete

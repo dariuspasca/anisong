@@ -2,7 +2,8 @@ import Head from "next/head"
 import { Authenticated } from "@refinedev/core"
 
 import { settingsConfig } from "@/config/settingsConfig"
-import { DeleteAccount } from "@/components/delete-account"
+import AccountDelete from "@/components/account-delete"
+import AccountUsername from "@/components/account-username"
 import Layout from "@/components/layout"
 import LoadingScreen from "@/components/loading"
 import PagedHeader from "@/components/page-header"
@@ -23,7 +24,10 @@ const SettingsPage: NextPageWithLayout = () => {
           text={settingsConfig.description}
         />
       </PagedShell>
-      <DeleteAccount />
+      <div className="mt-10">
+        <AccountUsername />
+        <AccountDelete />
+      </div>
     </Authenticated>
   )
 }

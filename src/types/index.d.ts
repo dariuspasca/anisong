@@ -37,6 +37,11 @@ interface IUserIdentity {
   }
 }
 
+export interface Profile {
+  id: string
+  username: string
+}
+
 export interface Playlist {
   id: string
   title: string
@@ -44,9 +49,7 @@ export interface Playlist {
   profile_id: string
   public: boolean
   playlist_tracks: { track_id: string }[]
-  profiles: {
-    username: string
-  }
+  profiles: Profile
 }
 
 export interface Track {

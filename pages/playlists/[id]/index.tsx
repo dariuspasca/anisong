@@ -14,7 +14,7 @@ const PlaylistPage: NextPageWithLayout = () => {
     queryResult: { data, isLoading },
   } = useShow<Playlist>({
     meta: {
-      select: "*, playlist_tracks(track_id), profiles(username)",
+      select: "*, playlist_tracks(track_id), profiles(id, username)",
     },
   })
 
