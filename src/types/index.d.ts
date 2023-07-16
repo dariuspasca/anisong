@@ -44,6 +44,9 @@ export interface Playlist {
   profile_id: string
   public: boolean
   playlist_tracks: { track_id: string }[]
+  profiles: {
+    username: string
+  }
 }
 
 export interface Track {

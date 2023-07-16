@@ -4,20 +4,31 @@ import { useShow, useTable } from "@refinedev/core"
 import { NextPageWithLayout } from "pages/_app"
 
 import { settingsConfig } from "@/config/settingsConfig"
+import { siteConfig } from "@/config/siteConfig"
 import LoadingScreen from "@/components/loading"
 import PlaylistUnavailable from "@/components/playlist-unavailable"
 import PlaylistViewer from "@/components/playlist-viewer"
 
-const PlaylistShowPage: NextPageWithLayout = () => {
+const PlaylistPage: NextPageWithLayout = () => {
   const {
     queryResult: { data, isLoading },
   } = useShow<Playlist>({
     meta: {
-      select: "*, playlist_tracks(track_id)",
+      select: "*, playlist_tracks(track_id), profiles(username)",
     },
   })
 
   const playlist = data?.data
+
+  function getPageTitle() {
+    if (isLoading) {
+      return siteConfig.name
+    }
+    if (playlist) {
+      return `${playlist.title} | ${siteConfig.name}`
+    }
+    return `Playlist unavailable | ${siteConfig.name}`
+  }
 
   const {
     tableQueryResult: { data: tracks, isLoading: isLoadingTracks },
@@ -41,7 +52,7 @@ const PlaylistShowPage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>{playlist?.title} | Anisong</title>
+        <title>{getPageTitle()}</title>
         {playlist?.description && (
           <meta
             name="description"
@@ -58,10 +69,10 @@ const PlaylistShowPage: NextPageWithLayout = () => {
   )
 }
 
-PlaylistShowPage.getLayout = function getLayout(page) {
+PlaylistPage.getLayout = function getLayout(page) {
   return (
     <div className="container mx-auto grid items-start gap-10 py-8">{page}</div>
   )
 }
 
-export default PlaylistShowPage
+export default PlaylistPage
