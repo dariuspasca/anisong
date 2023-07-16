@@ -22,10 +22,12 @@ const PlaylistPage: NextPageWithLayout = () => {
 
   const playlist = data?.data
 
-  if (playlist) {
-    setTitle(`${playlist.title} | ${siteConfig.name}`)
-  } else {
-    setTitle(`Playlist unavailable | ${siteConfig.name}`)
+  if (!isLoading) {
+    if (playlist) {
+      setTitle(`${playlist.title} | ${siteConfig.name}`)
+    } else {
+      setTitle(`Playlist unavailable | ${siteConfig.name}`)
+    }
   }
 
   const {
