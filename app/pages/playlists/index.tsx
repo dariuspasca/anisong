@@ -6,6 +6,7 @@ import { Authenticated, useTable } from "@refinedev/core"
 import { playlistConfig } from "@/config/playlistConfig"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
+import { playlistsColumns } from "@/components/ui/columns-playlist"
 import { DataTable } from "@/components/data-table"
 import EmptyPlaceholder from "@/components/empty-placeholder"
 import Layout from "@/components/layout"
@@ -14,7 +15,6 @@ import PagedHeader from "@/components/page-header"
 import PagedShell from "@/components/page-shell"
 
 import type { NextPageWithLayout } from "../_app"
-import { playlistsColumns } from "./columns"
 
 const PlaylistsPage: NextPageWithLayout = () => {
   const {

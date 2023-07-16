@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/eslintrc",
   "root": true,
   "extends": ["next/core-web-vitals", "prettier"],
-  "plugins": ["tailwindcss", "@typescript-eslint"],
+  "plugins": ["@typescript-eslint"],
   "rules": {
     "@next/next/no-html-link-for-pages": "off",
     "react/jsx-key": "off",

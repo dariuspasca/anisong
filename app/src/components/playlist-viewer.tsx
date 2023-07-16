@@ -1,13 +1,14 @@
 import * as React from "react"
 import Link from "next/link"
 import type { Playlist, Track } from "@/types"
-import { tracksColumns } from "pages/playlists/[id]/columns"
 
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { DataTable } from "@/components/data-table"
 import EmptyPlaceholder from "@/components/empty-placeholder"
 import Icons from "@/components/icons"
+
+import { tracksColumns } from "./columns-track"
 
 interface PlaylistViewerProps {
   playlist: Playlist
