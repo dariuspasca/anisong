@@ -7,9 +7,9 @@ import { playlistConfig } from "@/config/playlistConfig"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { playlistsColumns } from "@/components/ui/columns-playlist"
+import AppLayout from "@/components/app-layout"
 import { DataTable } from "@/components/data-table"
 import EmptyPlaceholder from "@/components/empty-placeholder"
-import Layout from "@/components/layout"
 import LoadingScreen from "@/components/loading"
 import PagedHeader from "@/components/page-header"
 import PagedShell from "@/components/page-shell"
@@ -76,7 +76,7 @@ const PlaylistsPage: NextPageWithLayout = () => {
 }
 
 PlaylistsPage.getLayout = function getLayout(page) {
-  return <Layout>{page}</Layout>
+  return <AppLayout>{page}</AppLayout>
 }
 
 export default PlaylistsPage

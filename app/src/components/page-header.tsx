@@ -6,7 +6,7 @@ interface PagedHeaderProps {
 
 const PagedHeader = ({ heading, text, children }: PagedHeaderProps) => {
   return (
-    <div className="flex flex-col justify-between gap-4 px-2 md:flex-row">
+    <div className="flex items-center justify-between px-2">
       <div className="grid gap-1">
         <h1 className="text-2xl font-bold tracking-wide">{heading}</h1>
         {text && <p className="text-neutral-500">{text}</p>}

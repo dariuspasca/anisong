@@ -27,16 +27,25 @@ export const playlistsColumns: ColumnDef<Playlist>[] = [
   },
   {
     accessorKey: "description",
-    header: "Description",
+    header: ({ column }) => {
+      return <span className="hidden md:flex">Description</span>
+    },
+    cell: ({ row }) => {
+      const description: string = row.getValue("description")
+
+      return <span className="hidden md:flex">{description}</span>
+    },
   },
   {
     accessorKey: "playlist_tracks",
-    header: "Tracks",
+    header: ({ column }) => {
+      return <span className="hidden md:flex">Tracks</span>
+    },
     cell: ({ row }) => {
       const tracks: Playlist["playlist_tracks"] =
         row.getValue("playlist_tracks")
 
-      return tracks.length
+      return <span className="hidden md:flex">{tracks.length}</span>
     },
   },
   {

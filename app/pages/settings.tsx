@@ -4,7 +4,7 @@ import { Authenticated } from "@refinedev/core"
 import { settingsConfig } from "@/config/settingsConfig"
 import AccountDelete from "@/components/account-delete"
 import AccountUsername from "@/components/account-username"
-import Layout from "@/components/layout"
+import AppLayout from "@/components/app-layout"
 import LoadingScreen from "@/components/loading"
 import PagedHeader from "@/components/page-header"
 import PagedShell from "@/components/page-shell"
@@ -33,7 +33,7 @@ const SettingsPage: NextPageWithLayout = () => {
 }
 
 SettingsPage.getLayout = function getLayout(page) {
-  return <Layout>{page}</Layout>
+  return <AppLayout>{page}</AppLayout>
 }
 
 export default SettingsPage
