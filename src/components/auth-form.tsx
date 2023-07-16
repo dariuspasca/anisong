@@ -28,11 +28,11 @@ function AuthForm() {
     resolver: zodResolver(userAuthSchema),
   })
 
-  async function onSubmit(data: FormData) {
+  async function onSubmit(formData: FormData) {
     login(
       {
         type: "email",
-        email: data.email.toLowerCase(),
+        email: formData.email.toLowerCase(),
         redirectTo: "/playlists",
       },
       {
@@ -77,7 +77,7 @@ function AuthForm() {
               </p>
             )}
           </div>
-          <Button type="button" disabled={isLoading}>
+          <Button type="submit" disabled={isLoading}>
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
