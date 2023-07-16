@@ -26,7 +26,7 @@ const AnimeList = ({ animes, onRemove }: AnimeListProps) => {
     )
   }
   return (
-    <div className="animate-in fade-in-50 flex min-h-[400px] flex-col justify-start gap-5 rounded-md border border-dashed p-8 text-center">
+    <div className="flex min-h-[400px] flex-col justify-start gap-5 rounded-md border border-dashed p-8 text-center animate-in fade-in-50">
       {animes.map((anime) => {
         return (
           <div className="flex justify-between gap-6" key={anime.node.id}>

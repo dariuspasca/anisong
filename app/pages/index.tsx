@@ -22,7 +22,7 @@ const IndexPage: NextPageWithLayout = () => {
       </Head>
 
       <div className="flex min-h-screen flex-col">
-        <header className="bg-background container z-40">
+        <header className="container z-40 bg-background">
           <div className="flex h-20 items-center justify-between py-6">
             <Link href="/" className="hidden items-center space-x-2 md:flex">
               <Icons.logo />
@@ -49,7 +49,7 @@ const IndexPage: NextPageWithLayout = () => {
               <h1 className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
                 Create your favorite animes playlist
               </h1>
-              <p className="text-muted-foreground max-w-[42rem] leading-normal sm:text-xl sm:leading-8">
+              <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
                 Pick your favorite animes and we&apos;ll create a playlist with
                 the opening/ending theme songs
               </p>

@@ -113,7 +113,7 @@ function NewPlaylistForm() {
               <Label className="text-base" htmlFor="public">
                 Public
               </Label>
-              <p className="text-muted-foreground text-sm">
+              <p className="text-sm text-muted-foreground">
                 Make your playlist visible to everyone{" "}
               </p>
             </div>

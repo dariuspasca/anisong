@@ -1,5 +1,5 @@
 import * as React from "react"
-import type { IUserIdentity} from "@/types";
+import type { IUserIdentity } from "@/types"
 import { type MalAnime, type TrackResponse } from "@/types"
 import { useGetIdentity, useGo } from "@refinedev/core"
 

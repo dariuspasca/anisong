@@ -30,7 +30,7 @@ function AccountDelete() {
 
   return (
     <>
-      <Card className="border-destructive mt-8">
+      <Card className="mt-8 border-destructive">
         <CardHeader>
           <CardTitle>Delete Account</CardTitle>
           <CardDescription>

@@ -49,7 +49,7 @@ const RegisterPage: NextPageWithLayout = () => {
             </h1>
           </div>
           <AuthForm />
-          <p className="text-muted-foreground px-8 text-center text-sm">
+          <p className="px-8 text-center text-sm text-muted-foreground">
             <Link
               href="/login"
               className="hover:text-brand underline underline-offset-4"

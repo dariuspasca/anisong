@@ -1,5 +1,4 @@
-import type {
-  LucideProps} from "lucide-react";
+import type { LucideProps } from "lucide-react"
 import {
   ArrowRight,
   ChevronLeft,

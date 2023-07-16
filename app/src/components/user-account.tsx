@@ -45,7 +45,7 @@ export function UserAccount({ user }: UserAccountProps) {
               <p className="font-medium">{profile.data.username}</p>
             )}
             {user.email && (
-              <p className="text-muted-foreground w-[200px] truncate text-sm">
+              <p className="w-[200px] truncate text-sm text-muted-foreground">
                 {user.email}
               </p>
             )}
