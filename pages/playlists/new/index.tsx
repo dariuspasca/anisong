@@ -1,8 +1,9 @@
 import Head from "next/head"
+import { Authenticated } from "@refinedev/core"
 import { NextPageWithLayout } from "pages/_app"
 
+import LoadingScreen from "@/components/loading"
 import NewPlaylistForm from "@/components/new-playlist-form"
-import PagedHeader from "@/components/page-header"
 
 const NewPlaylistPage: NextPageWithLayout = () => {
   return (
@@ -10,8 +11,9 @@ const NewPlaylistPage: NextPageWithLayout = () => {
       <Head>
         <title>New playlist | Anisong</title>
       </Head>
-
-      <NewPlaylistForm />
+      <Authenticated loading={<LoadingScreen />}>
+        <NewPlaylistForm />
+      </Authenticated>
     </>
   )
 }

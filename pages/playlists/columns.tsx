@@ -13,7 +13,13 @@ export const playlistsColumns: ColumnDef<Playlist>[] = [
       const title: boolean = row.getValue("title")
 
       return (
-        <Link href={`/playlists/show/${id}`} className=" hover:underline">
+        <Link
+          href={{
+            pathname: "/playlists/[id]",
+            query: { id },
+          }}
+          className=" hover:underline"
+        >
           {title}
         </Link>
       )

@@ -43,7 +43,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
             {
               name: "playlists",
               list: "/playlists",
-              show: "/playlists/show/:id",
+              show: "/playlists/:id",
               create: "/playlists/new",
             },
           ]}

@@ -1,7 +1,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { Playlist, Track } from "@/types"
-import { tracksColumns } from "pages/playlists/show/columns"
+import { tracksColumns } from "pages/playlists/[id]/columns"
 
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"

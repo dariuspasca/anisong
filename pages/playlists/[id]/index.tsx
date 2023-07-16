@@ -5,6 +5,7 @@ import { NextPageWithLayout } from "pages/_app"
 
 import { settingsConfig } from "@/config/settingsConfig"
 import LoadingScreen from "@/components/loading"
+import PlaylistUnavailable from "@/components/playlist-unavailable"
 import PlaylistViewer from "@/components/playlist-viewer"
 
 const PlaylistShowPage: NextPageWithLayout = () => {
@@ -48,8 +49,11 @@ const PlaylistShowPage: NextPageWithLayout = () => {
           />
         )}
       </Head>
-
-      <PlaylistViewer playlist={playlist} tracks={tracks?.data ?? []} />
+      {playlist ? (
+        <PlaylistViewer playlist={playlist} tracks={tracks?.data ?? []} />
+      ) : (
+        <PlaylistUnavailable />
+      )}
     </>
   )
 }
