@@ -43,7 +43,7 @@ function NewPlaylistForm() {
 
   async function onSubmit(data: FormData) {
     if (animes.length) {
-      createPlaylist(data.title, animes)
+      createPlaylist(data.title, data.description, animes)
     }
   }
 

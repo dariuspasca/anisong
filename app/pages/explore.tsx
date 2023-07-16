@@ -27,6 +27,9 @@ const ExplorePage: NextPageWithLayout = () => {
         },
       ],
     },
+    pagination: {
+      pageSize: 100,
+    },
   })
 
   return (

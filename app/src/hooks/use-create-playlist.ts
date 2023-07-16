@@ -10,7 +10,11 @@ function useCreatePlaylist() {
   const [isLoading, setIsLoading] = React.useState(false)
   const go = useGo()
 
-  async function createPlaylist(title: string, animes: MalAnime[]) {
+  async function createPlaylist(
+    title: string,
+    description: string,
+    animes: MalAnime[]
+  ) {
     setIsLoading(true)
     const animeIds = animes.map((anime) => String(anime.node.id))
     const tracks = await fetchAnimeTracks(animeIds)
@@ -21,7 +25,7 @@ function useCreatePlaylist() {
 
       const { data: playlist, error: playlistError } = await supabaseClient
         .from("playlists")
-        .insert({ title, profile_id: userIdentity?.id })
+        .insert({ title, description, profile_id: userIdentity?.id })
         .select("id")
 
       if (playlistError) {

@@ -8,7 +8,7 @@ interface ExploreFeedProps {
 
 function ExploreFeed({ playlists }: ExploreFeedProps) {
   return (
-    <div className="flex">
+    <div className="flex gap-4">
       {playlists.map((playlist) => (
         <PlaylistCard playlist={playlist} />
       ))}

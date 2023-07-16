@@ -45,6 +45,9 @@ const PlaylistPage: NextPageWithLayout = () => {
         },
       ],
     },
+    pagination: {
+      pageSize: 100,
+    },
   })
 
   if (isLoading || isLoadingTracks) <LoadingScreen />

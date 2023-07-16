@@ -23,6 +23,9 @@ const PlaylistsPage: NextPageWithLayout = () => {
     meta: {
       select: "*, playlist_tracks(playlist_id)",
     },
+    pagination: {
+      pageSize: 100,
+    },
   })
 
   const tableData = data?.data
