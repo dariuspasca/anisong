@@ -1,6 +1,7 @@
 import Head from "next/head"
 import type { Playlist, Track } from "@/types"
 import { useShow, useTable } from "@refinedev/core"
+import { useDocumentTitle } from "@refinedev/nextjs-router"
 import type { NextPageWithLayout } from "pages/_app"
 
 import { settingsConfig } from "@/config/settingsConfig"
@@ -10,6 +11,7 @@ import PlaylistUnavailable from "@/components/playlist-unavailable"
 import PlaylistViewer from "@/components/playlist-viewer"
 
 const PlaylistPage: NextPageWithLayout = () => {
+  const setTitle = useDocumentTitle(`${siteConfig.name} | Anisong`)
   const {
     queryResult: { data, isLoading },
   } = useShow<Playlist>({
@@ -20,14 +22,10 @@ const PlaylistPage: NextPageWithLayout = () => {
 
   const playlist = data?.data
 
-  function getPageTitle() {
-    if (isLoading) {
-      return siteConfig.name
-    }
-    if (playlist) {
-      return `${playlist.title} | ${siteConfig.name}`
-    }
-    return `Playlist unavailable | ${siteConfig.name}`
+  if (playlist) {
+    setTitle(`${playlist.title} | ${siteConfig.name}`)
+  } else {
+    setTitle(`Playlist unavailable | ${siteConfig.name}`)
   }
 
   const {
@@ -55,7 +53,6 @@ const PlaylistPage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>{getPageTitle()}</title>
         {playlist?.description && (
           <meta
             name="description"

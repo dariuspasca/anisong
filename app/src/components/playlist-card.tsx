@@ -1,6 +1,7 @@
+import Link from "next/link"
 import type { Playlist } from "@/types"
+import ReactTimeAgo from "react-time-ago"
 
-import { timeAgo } from "@/lib/time-ago"
 import {
   Card,
   CardContent,
@@ -15,14 +16,21 @@ interface PlaylistCardProps {
 }
 
 function PlaylistCard({ playlist }: PlaylistCardProps) {
-  const updatedAt = timeAgo.format(new Date(playlist.updated_at))
   return (
-    <Card>
-      <CardHeader className="grid grid-cols-[1fr_110px] items-start gap-4 space-y-0">
-        <div className="space-y-1">
-          <CardTitle>{playlist.title}</CardTitle>
-          <CardDescription>{playlist.description}</CardDescription>
-        </div>
+    <Card className="flex h-[220px] flex-col justify-between rounded-md p-4">
+      <CardHeader className="flex items-start gap-4 space-y-0">
+        <CardTitle>
+          <Link
+            href={{
+              pathname: "/playlists/[id]",
+              query: { id: playlist.id },
+            }}
+            className=" hover:underline"
+          >
+            {playlist.title}
+          </Link>
+        </CardTitle>
+        <CardDescription>{playlist.description}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex space-x-4 text-sm text-muted-foreground">
@@ -34,7 +42,14 @@ function PlaylistCard({ playlist }: PlaylistCardProps) {
             <Icons.playlists className="mr-1 h-3 w-3" />
             {playlist.playlist_tracks.length}
           </div>
-          <div>Updated {updatedAt}</div>
+          <div className="text-sm">
+            Updated{" "}
+            <ReactTimeAgo
+              date={new Date(playlist.updated_at)}
+              locale="en-US"
+              timeStyle="twitter"
+            />
+          </div>
         </div>
       </CardContent>
     </Card>

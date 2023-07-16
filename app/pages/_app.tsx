@@ -18,7 +18,12 @@ import TailwindIndicator from "@/components/tailwind-indicator"
 
 import "@/styles/global.css"
 
+import TimeAgo from "javascript-time-ago"
+import en from "javascript-time-ago/locale/en.json"
+
 import { Toaster } from "@/components/ui/toaster"
+
+TimeAgo.addDefaultLocale(en)
 
 export type NextPageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<
   P,

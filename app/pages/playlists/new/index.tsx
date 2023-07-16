@@ -1,20 +1,17 @@
-import Head from "next/head"
 import { Authenticated } from "@refinedev/core"
+import { useDocumentTitle } from "@refinedev/nextjs-router"
 import type { NextPageWithLayout } from "pages/_app"
 
 import LoadingScreen from "@/components/loading"
 import NewPlaylistForm from "@/components/new-playlist-form"
 
 const NewPlaylistPage: NextPageWithLayout = () => {
+  useDocumentTitle("New playlist |Anisong")
+
   return (
-    <>
-      <Head>
-        <title>New playlist | Anisong</title>
-      </Head>
-      <Authenticated loading={<LoadingScreen />}>
-        <NewPlaylistForm />
-      </Authenticated>
-    </>
+    <Authenticated loading={<LoadingScreen />}>
+      <NewPlaylistForm />
+    </Authenticated>
   )
 }
 

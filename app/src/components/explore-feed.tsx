@@ -8,9 +8,9 @@ interface ExploreFeedProps {
 
 function ExploreFeed({ playlists }: ExploreFeedProps) {
   return (
-    <div className="flex gap-4">
+    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
       {playlists.map((playlist) => (
-        <PlaylistCard playlist={playlist} />
+        <PlaylistCard key={playlist.id} playlist={playlist} />
       ))}
     </div>
   )

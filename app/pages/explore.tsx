@@ -1,6 +1,6 @@
-import Head from "next/head"
 import { type Playlist } from "@/types"
 import { Authenticated, useTable } from "@refinedev/core"
+import { useDocumentTitle } from "@refinedev/nextjs-router"
 
 import { exploreConfig } from "@/config/exploreConfig"
 import AppLayout from "@/components/app-layout"
@@ -12,6 +12,8 @@ import PagedShell from "@/components/page-shell"
 import type { NextPageWithLayout } from "./_app"
 
 const ExplorePage: NextPageWithLayout = () => {
+  useDocumentTitle(`${exploreConfig.name} | Anisong`)
+
   const {
     tableQueryResult: { data: playlists, isLoading },
   } = useTable<Playlist>({
@@ -34,10 +36,6 @@ const ExplorePage: NextPageWithLayout = () => {
 
   return (
     <Authenticated loading={<LoadingScreen />}>
-      <Head>
-        <title>{exploreConfig.name} | Anisong</title>
-      </Head>
-
       <PagedShell>
         <PagedHeader
           heading={exploreConfig.name}

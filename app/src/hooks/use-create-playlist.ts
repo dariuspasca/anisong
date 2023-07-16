@@ -34,7 +34,7 @@ function useCreatePlaylist() {
 
       await addTracksToPlaylist(newTracks || [], playlist[0].id)
 
-      go({ to: `/playlists/show/${playlist[0].id}` })
+      go({ to: `/playlists/${playlist[0].id}` })
 
       setIsLoading(false)
     } catch (err) {

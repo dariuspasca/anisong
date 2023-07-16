@@ -88,6 +88,9 @@ dependencies:
   react-hook-form:
     specifier: ^7.45.1
     version: 7.45.1(react@18.0.0)
+  react-time-ago:
+    specifier: ^7.2.1
+    version: 7.2.1(javascript-time-ago@2.5.9)(react-dom@18.0.0)(react@18.0.0)
   tailwind-merge:
     specifier: ^1.13.2
     version: 1.13.2
@@ -6707,6 +6710,10 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
+  /memoize-one@6.0.0:
+    resolution: {integrity: sha512-rkpe71W0N0c0Xz6QD0eJETuWAJGnJ9afsl1srmwPrI+yBCkge5EycXXbYRyvL29zZVUWQCY7InPRCv3GDXuZNw==}
+    dev: false
+
   /merge-descriptors@1.0.1:
     resolution: {integrity: sha512-cCi6g3/Zr1iqQi6ySbseM1Xvooa98N0w31jzUYrXPX2xqObmFGHJ0tQ5u74H3mVh7wLouTseZyYIq39g8cNp1w==}
     dev: false
@@ -7317,6 +7324,10 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
 
+  /performance-now@2.1.0:
+    resolution: {integrity: sha512-7EAHlyLHI56VEIdK57uwHdHKIaAGbnXPiw0yWbarQZOKaKpvUIgW0jWRVLiatnM+XXlSwsanIBH/hzGMJulMow==}
+    dev: false
+
   /picocolors@1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
 
@@ -7573,6 +7584,12 @@ packages:
 
   /queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
+
+  /raf@3.4.1:
+    resolution: {integrity: sha512-Sq4CW4QhwOHE8ucn6J34MqtZCeWFP2aQSmrlroYgqAV1PjStIhJXxYuTgUIfkEk7zTLjmIjLmU5q+fbD1NnOJA==}
+    dependencies:
+      performance-now: 2.1.0
+    dev: false
 
   /range-parser@1.2.1:
     resolution: {integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==}
@@ -8269,6 +8286,21 @@ packages:
       invariant: 2.2.4
       react: 18.0.0
       tslib: 2.6.0
+    dev: false
+
+  /react-time-ago@7.2.1(javascript-time-ago@2.5.9)(react-dom@18.0.0)(react@18.0.0):
+    resolution: {integrity: sha512-X5zwJDZHa1fsMwMvh8mrHN31g85s84zMCp+d7YL6IX50kNnr6YMAS2wpt1BmO9OxBV2Ue5J1ptD6JI8Zjd35HA==}
+    peerDependencies:
+      javascript-time-ago: ^2.3.7
+      react: '>=0.16.8'
+      react-dom: '>=0.16.8'
+    dependencies:
+      javascript-time-ago: 2.5.9
+      memoize-one: 6.0.0
+      prop-types: 15.8.1
+      raf: 3.4.1
+      react: 18.0.0
+      react-dom: 18.0.0(react@18.0.0)
     dev: false
 
   /react-virtual@2.10.4(react@18.0.0):

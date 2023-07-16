@@ -1,5 +1,5 @@
-import Head from "next/head"
 import { Authenticated } from "@refinedev/core"
+import { useDocumentTitle } from "@refinedev/nextjs-router"
 
 import { settingsConfig } from "@/config/settingsConfig"
 import AccountDelete from "@/components/account-delete"
@@ -12,12 +12,10 @@ import PagedShell from "@/components/page-shell"
 import type { NextPageWithLayout } from "./_app"
 
 const SettingsPage: NextPageWithLayout = () => {
+  useDocumentTitle(`${settingsConfig.name} | Anisong`)
+
   return (
     <Authenticated loading={<LoadingScreen />}>
-      <Head>
-        <title>{settingsConfig.name} | Anisong</title>
-      </Head>
-
       <PagedShell>
         <PagedHeader
           heading={settingsConfig.name}

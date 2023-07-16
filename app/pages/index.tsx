@@ -1,18 +1,44 @@
 import Head from "next/head"
 import Link from "next/link"
+import type { Playlist } from "@/types"
+import { useTable } from "@refinedev/core"
+import { useDocumentTitle } from "@refinedev/nextjs-router"
 
 import { siteConfig } from "@/config/siteConfig"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
+import ExploreFeed from "@/components/explore-feed"
 import Layout from "@/components/layout"
+import PlaylistCard from "@/components/playlist-card"
 
 import type { NextPageWithLayout } from "./_app"
 
 const IndexPage: NextPageWithLayout = () => {
+  useDocumentTitle(`Anisong | ${siteConfig.description}`)
+
+  const {
+    tableQueryResult: { data: featuredPlaylists, isLoading },
+  } = useTable<Playlist>({
+    resource: "playlists",
+    meta: { select: "*, playlist_tracks(playlist_id), profiles(id, username)" },
+    filters: {
+      mode: "server",
+      permanent: [
+        {
+          field: "featured",
+          operator: "eq",
+          value: "true",
+        },
+      ],
+    },
+    pagination: {
+      pageSize: 3,
+    },
+  })
+
   return (
     <>
       <Head>
-        <title>Anisong | {siteConfig.description}</title>
         <meta name="description" content={siteConfig.description} />
       </Head>
 
@@ -30,6 +56,21 @@ const IndexPage: NextPageWithLayout = () => {
               Get Started
             </Link>
           </div>
+        </div>
+      </section>
+      <section
+        id="features"
+        className="container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-24"
+      >
+        <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
+          <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
+            Featured playlists
+          </h2>
+        </div>
+        <div className="mx-auto grid justify-center gap-4 pt-8 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
+          {(featuredPlaylists?.data || []).map((playlist) => (
+            <PlaylistCard key={playlist.id} playlist={playlist} />
+          ))}
         </div>
       </section>
     </>
